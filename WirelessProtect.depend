@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1513774462 source:/home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.cc
+	"./PcapManager.h"
+
+1513771513 /home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.h
+	<stdio.h>
+	<pcap.h>
+	<iostream>
+	<functional>
+
+1513772817 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
+	"./pcap/PcapManager.h"
+
