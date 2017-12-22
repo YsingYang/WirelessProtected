@@ -1,13 +1,38 @@
 # depslib dependency file v1.0
-1513774462 source:/home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.cc
+1513774874 source:/home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.cc
 	"./PcapManager.h"
 
-1513771513 /home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.h
+1513861795 /home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.h
 	<stdio.h>
 	<pcap.h>
 	<iostream>
 	<functional>
+	"../_80211/ieee80211.h"
 
-1513772817 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
+1513862493 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
 	"./pcap/PcapManager.h"
+	"./_80211/BasicFrame.h"
+
+1513863710 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.cc
+	"./BasicFrame.h"
+
+1513864386 /home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.h
+	<stdio.h>
+	<unistd.h>
+	<stdint.h>
+	<iostream>
+	<stdlib.h>
+	<sys/ioctl.h>
+	<linux/if_ether.h>
+	"ieee80211.h"
+	"ieee80211_radiotap.h"
+
+1513862047 /home/ysing/codeblock Projects/WirelessProtect/_80211/ieee80211.h
+	<linux/types.h>
+	<linux/if_ether.h>
+	<asm/byteorder.h>
+	<stdint-gcc.h>
+
+1496065113 /home/ysing/codeblock Projects/WirelessProtect/_80211/ieee80211_radiotap.h
+	<stdint.h>
 

@@ -36,6 +36,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="_80211/BasicFrame.cc" />
+		<Unit filename="_80211/BasicFrame.h" />
 		<Unit filename="_80211/ieee80211.h" />
 		<Unit filename="_80211/ieee80211_radiotap.h" />
 		<Unit filename="main.cc" />

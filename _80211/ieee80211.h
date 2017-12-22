@@ -29,7 +29,6 @@
 #endif
 
 #define cpu_to_le16 __cpu_to_le16
-
 /*
  * DS bit usage
  *

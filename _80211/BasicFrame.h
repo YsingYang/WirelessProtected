@@ -1,37 +1,52 @@
 #ifndef __BASICFRAME__
-#include "./ieee80211.h"
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdint.h>
+#include <iostream>
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <linux/if_ether.h>
+
+#include "ieee80211.h"
+#include "ieee80211_radiotap.h"
+
+#define le16_to_cpu __le16_to_cpu
 
 class BasicFrame{
 public:
-    BasicFrame();
+    BasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data);
     ~BasicFrame();
-private;
-
+protected:
+    uint32_t packetLength_;
+    uint32_t radiotapLength_;
+    ieee80211_radiotap_header*  radiotap_;
 };
 
+// mgmt frame
 class SubBasicFrame : public BasicFrame{
 public:
-    SubBasicFrame();
+    SubBasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data);
     ~SubBasicFrame();
-private:
-    ieee80211_hdr* hdr;
+    inline bool isProbeRequest();
+    virtual void parse() = 0;
+protected:
+    ieee80211_mgmt* mgmt;
 };
 
-class SubBasicFrame3Addr : public BasicFrame{
+class ProbeRequestFrame : public SubBasicFrame {
 public:
-    SubBasicFrame3Addr();
-    ~SubBasicFrame3Addr();
+    ProbeRequestFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data);
+    ~ProbeRequestFrame();
+    void parse() override;
+
 private:
-    ieee80211_hdr_3addr* hdr;
+    ieee80211_ie *ie;
 };
 
-class SubBasicFrameQos :public BasicFrame {
-public:
-    SubBasicFrameQos();
-    ~SubBasicFrameQos();
-private:
-    ieee80211_qos_hdr* hdr;
-};
 
+bool SubBasicFrame::isProbeRequest(){
+    return ieee80211_is_probe_req(mgmt->frame_control);
+}
 
 #endif // __BASICFRAME__

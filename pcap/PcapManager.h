@@ -4,6 +4,7 @@
 #include <pcap.h>
 #include <iostream>
 #include <functional>
+#include "../_80211/ieee80211.h"
 
 /*******************************
 
@@ -21,7 +22,6 @@ public:
     void setLoopFunction(pcapCallbackType);
 
 private:
-
     std::string netcardName_;
     char errbuf_[1024];
     pcap_t* pcapHandler_;
