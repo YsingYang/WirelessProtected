@@ -38,6 +38,8 @@
 		</Compiler>
 		<Unit filename="_80211/BasicFrame.cc" />
 		<Unit filename="_80211/BasicFrame.h" />
+		<Unit filename="_80211/FrameFactory.cc" />
+		<Unit filename="_80211/FrameFactory.h" />
 		<Unit filename="_80211/ieee80211.h" />
 		<Unit filename="_80211/ieee80211_radiotap.h" />
 		<Unit filename="main.cc" />

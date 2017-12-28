@@ -3,8 +3,12 @@
 
 class FrameFactory {
 public:
-    static SubBasicFrame*
+    static void  createInstance();
+
+    SubBasicFrame* produced();
 private:
+    SubBasicFrame() {}
+
     static FrameFactory* singleton = nullptr;
 };
 
