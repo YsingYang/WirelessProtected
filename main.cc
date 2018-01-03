@@ -1,7 +1,11 @@
+#include <memory>
+
 #include "./pcap/PcapManager.h"
 #include "./_80211/BasicFrame.h"
+#include "./_80211/FrameFactory.h"
 
 #define le16_to_cpu __le16_to_cpu
+
 
 void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_char* packetData) {
     uint32_t packetLength = packetHeader->caplen;
@@ -12,8 +16,10 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
         return;
     }
 
-    ProbeRequestFrame pr(packetLength, rtLength, const_cast<u_char*>(packetData));
-    pr.parse();
+    std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData + rtLength));
+    if(probeRequest != nullptr) {
+        probeRequest ->parse();
+    }
 }
 
 int main() {

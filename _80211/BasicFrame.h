@@ -1,4 +1,5 @@
 #ifndef __BASICFRAME__
+#define __BASICFRAME__
 
 #include <stdio.h>
 #include <unistd.h>
