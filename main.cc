@@ -16,8 +16,9 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
         return;
     }
 
-    std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData + rtLength));
+    std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData));
     if(probeRequest != nullptr) {
+        std::cout<<"执行 " <<std::endl;
         probeRequest ->parse();
     }
 }

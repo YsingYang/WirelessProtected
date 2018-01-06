@@ -13,7 +13,6 @@ PcapManager::PcapManager(std::string netcard) :
 
 void PcapManager::setLoopFunction(PcapManager::pcapCallbackType callbackFunction){
     loopFunction_ = callbackFunction;
-
 }
 
 void PcapManager::funLoop(int time){

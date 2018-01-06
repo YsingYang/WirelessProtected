@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <assert.h>
 #include <iostream>
 #include <stdlib.h>
 #include <sys/ioctl.h>
@@ -31,6 +32,7 @@ public:
     ~SubBasicFrame();
     inline bool isProbeRequest();
     virtual void parse() = 0;
+    virtual void resend() = 0;
 protected:
     ieee80211_mgmt* mgmt;
 };
@@ -40,6 +42,7 @@ public:
     ProbeRequestFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data);
     ~ProbeRequestFrame();
     void parse() override;
+    void resend() override;
 
 private:
     ieee80211_ie *ie;
