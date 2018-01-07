@@ -48,6 +48,9 @@ void ProbeRequestFrame::parse() {
     }
 }
 
+void ProbeRequestFrame::recombination() {
+    u_char FakeBeaconFrame[1024];
+}
 void ProbeRequestFrame::resend() {
 
 }

@@ -36,6 +36,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Socket/Sender.cc" />
+		<Unit filename="Socket/Sender.h" />
 		<Unit filename="_80211/BasicFrame.cc" />
 		<Unit filename="_80211/BasicFrame.h" />
 		<Unit filename="_80211/FrameFactory.cc" />

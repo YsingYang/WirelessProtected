@@ -33,6 +33,7 @@ public:
     inline bool isProbeRequest();
     virtual void parse() = 0;
     virtual void resend() = 0;
+    virtual void recombination() = 0;
 protected:
     ieee80211_mgmt* mgmt;
 };
@@ -43,6 +44,7 @@ public:
     ~ProbeRequestFrame();
     void parse() override;
     void resend() override;
+    void recombination() override;
 
 private:
     ieee80211_ie *ie;
