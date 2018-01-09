@@ -20,13 +20,21 @@ SubBasicFrame::~SubBasicFrame() {}
 
 ProbeRequestFrame::~ProbeRequestFrame() {}
 
+void SubBasicFrame::setSeq(uint32_t seq) {
+    mgmt->seq_ctrl = htons(seq << 4);
+}
+
+void extractInformationElement() {
+
+}
+
+void ProbeRequestFrame::setSSID(std::string SSID) {
+
+}
+
 void ProbeRequestFrame::parse() {
     std::cout<<"packetLength :  " << packetLength_ <<"   radiotapLength : " <<radiotapLength_<<std::endl;
-    /*for(int i = 0; i < packetLength_ - radiotapLength_; ++i) {
-        printf("%x  ", *(u_char*)((u_char*)(mgmt)+ i));
-    }
-    std::cout<<std::endl;*/
-    int remainLenght = packetLength_ - radiotapLength_ - 24; //减取radioTap与非ie部分
+    int remainLength = packetLength_ - radiotapLength_ - 24; //减取radioTap与非ie部分
     while(remainLenght > FCS_LEN) {
         switch(ie -> id) {
             case WLAN_EID_SSID: {
@@ -51,6 +59,7 @@ void ProbeRequestFrame::parse() {
 void ProbeRequestFrame::recombination() {
     u_char FakeBeaconFrame[1024];
 }
-void ProbeRequestFrame::resend() {
+
+void ProbeRequestFrame::resend(){
 
 }

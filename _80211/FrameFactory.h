@@ -1,5 +1,5 @@
 #ifndef __FRAMEFACTORY_H__
-
+#define __FRAMEFACTORY_H__
 #include <memory>
 
 #include "BasicFrame.h"

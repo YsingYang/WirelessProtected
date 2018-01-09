@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1515141162 source:/home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.cc
+1515313141 source:/home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.cc
 	"./PcapManager.h"
 
 1513861795 /home/ysing/codeblock Projects/WirelessProtect/pcap/PcapManager.h
@@ -9,16 +9,17 @@
 	<functional>
 	"../_80211/ieee80211.h"
 
-1515241174 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
+1515504422 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
 	<memory>
 	"./pcap/PcapManager.h"
 	"./_80211/BasicFrame.h"
 	"./_80211/FrameFactory.h"
+	"./Socket/Sender.h"
 
-1515241752 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.cc
+1515316504 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.cc
 	"./BasicFrame.h"
 
-1515156838 /home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.h
+1515506768 /home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.h
 	<stdio.h>
 	<unistd.h>
 	<stdint.h>
@@ -27,6 +28,7 @@
 	<stdlib.h>
 	<sys/ioctl.h>
 	<linux/if_ether.h>
+	<arpa/inet.h>
 	"ieee80211.h"
 	"ieee80211_radiotap.h"
 
@@ -42,7 +44,7 @@
 1515241263 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/FrameFactory.cc
 	"FrameFactory.h"
 
-1514985562 /home/ysing/codeblock Projects/WirelessProtect/_80211/FrameFactory.h
+1515502090 /home/ysing/codeblock Projects/WirelessProtect/_80211/FrameFactory.h
 	<memory>
 	"BasicFrame.h"
 	"ieee80211.h"
@@ -91,4 +93,20 @@
 
 1515295765 source:/home/ysing/Project/C++Project/WirelessProtected/pcap/PcapManager.cc
 	"./PcapManager.h"
+
+1515501995 source:/home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.cc
+	"Sender.h"
+
+1515504477 /home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.h
+	<stdio.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<string.h>
+	<sys/socket.h>
+	<linux/if_packet.h>
+	<sys/ioctl.h>
+	<net/if.h>
+	<linux/if_ether.h>
+	<net/ethernet.h>
+	"../_80211/FrameFactory.h"
 

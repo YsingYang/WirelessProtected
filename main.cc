@@ -3,7 +3,7 @@
 #include "./pcap/PcapManager.h"
 #include "./_80211/BasicFrame.h"
 #include "./_80211/FrameFactory.h"
-
+#include "./Socket/Sender.h"
 #define le16_to_cpu __le16_to_cpu
 
 
@@ -15,11 +15,13 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
         printf("exceeding packet size\n");
         return;
     }
-
+    Sender* sender = Sender::getInstance();
+    sender->init("wlan0");
     std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData));
     if(probeRequest != nullptr) {
-        std::cout<<"执行 " <<std::endl;
         probeRequest ->parse();
+        SubBasicFrame* pb = probeRequest.get();
+        sender->recombination(dynamic_cast<ProbeRequestFrame*>(pb));
     }
 }
 
