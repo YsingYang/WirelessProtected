@@ -52,9 +52,10 @@ public:
     void parse() override;
     void resend() override;
     void recombination() override;
-
+    void extractInformationElement();
 private:
     ieee80211_ie *ie;
+    vector<ieee80211_ie*> elements;
 };
 
 

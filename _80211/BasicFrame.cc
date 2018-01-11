@@ -1,5 +1,24 @@
 #include "./BasicFrame.h"
+/************
 
+CustomIe应该存在什么容器里.
+如何修改data域
+
+*************/
+
+CustomIe::CustomIe(): id(-1), len(-1){}
+
+void CustomIe::setId(uint8_t id) {
+    id_ = id;
+}
+
+void CustomIe::setLength(uint8_t length) {
+    len_ = length;
+}
+
+void CustomIe::setData(std::vector<uint8_t> data) {
+    data_.emplace_back(data);
+}
 
 BasicFrame::BasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data)
     : packetLength_(packetLength), radiotapLength_(radiotapLength), radiotap_((ieee80211_radiotap_header*)(data)){
@@ -18,14 +37,29 @@ BasicFrame::~BasicFrame() {}
 
 SubBasicFrame::~SubBasicFrame() {}
 
-ProbeRequestFrame::~ProbeRequestFrame() {}
+ProbeRequestFrame::~ProbeRequestFrame() {
+    /*********************************
+        析构掉element中每一个元素的部分
+    **********************************/
+    for(int i = 0; i < elements.size(); ++i) {
+        delete elements[i];
+    }
+}
 
 void SubBasicFrame::setSeq(uint32_t seq) {
     mgmt->seq_ctrl = htons(seq << 4);
 }
 
-void extractInformationElement() {
+void ProbeRequestFrame::extractInformationElement() {
+    int remainLength = packetLength_ - radiotapLength_ - 24;
+    while(remainLength > FCS_LEN) {
+        int currentLength = ie->len;
+        CustomIe* customIe = new CustomIe();
+        customIe
 
+        remainLength -= ie->len - 2;
+        ie = (ieee80211_ie*) ((char*)(ie) + currentLength + 2);
+    }
 }
 
 void ProbeRequestFrame::setSSID(std::string SSID) {
