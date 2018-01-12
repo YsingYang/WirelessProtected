@@ -1,8 +1,15 @@
 #include "Sender.h"
 
+/********************************
+
+    继续Sender的中transmit代码编写
+
+***********************************/
+
+
 Sender* Sender::instance = nullptr;
 
-Sender::Sender() : broadcastSockFd_(-1){
+Sender::Sender() : broadcastSockFd_(-1), counter(0){
 
 }
 
@@ -53,13 +60,27 @@ void Sender::recombination(ProbeRequestFrame* pr) {
         这里注意一个问题, le16_to_cpu与原来得到的是一样的结果,  所以应该避免.
 
     ******************************/
+}
 
+void Sender::recombination(std::shared_ptr<SubBasicFrame> pr) {
     int seq = le16_to_cpu(pr->getMgmt()->seq_ctrl) >> 4;
     seq = ((seq + 1) << 4);
-    std::cout<<seq<<std::endl;
-    std::cout<<htons(seq)<<std::endl;
-
+    pr->setSeq(seq);
+    std::string ssid = "Test2";
+    pr->setSSID(ssid);
 }
+
+void Sender::transmit(std::shared_ptr<SubBasicFrame> pr) {
+    //先将帧拷贝到字符数组中
+    int counter = 0;
+    clean();
+}
+
+void Sender::copyDataToFakeFrame(char* data, int length) {
+    memcpy(fakeFrame_ + counter, data, length);
+    counter += length;
+}
+
 
 
 

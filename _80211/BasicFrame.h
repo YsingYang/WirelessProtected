@@ -2,6 +2,7 @@
 #define __BASICFRAME__
 
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <assert.h>
@@ -10,11 +11,41 @@
 #include <sys/ioctl.h>
 #include <linux/if_ether.h>
 #include <arpa/inet.h>
-
+#include <vector>
 #include "ieee80211.h"
 #include "ieee80211_radiotap.h"
 
 #define le16_to_cpu __le16_to_cpu
+
+class CustomIe {
+public:
+    CustomIe();
+    ~CustomIe();
+    void setId(uint8_t id);
+    void setLength(uint8_t length);
+    void setData(std::vector<uint8_t>&);
+    void setData(uint8_t* data, int length);
+    void setData(std::string& data, int length);
+    inline uint8_t getId() const ;
+    inline uint8_t getLength() const ;
+    inline std::vector<uint8_t> getData() const;
+private:
+    uint8_t id_;
+    uint8_t len_;
+    std::vector<uint8_t> data_;
+};
+
+uint8_t CustomIe::getId() const {
+    return id_;
+}
+
+uint8_t CustomIe::getLength() const {
+    return len_;
+}
+
+std::vector<uint8_t> CustomIe::getData() const{
+    return data_;
+}
 
 class BasicFrame{
 public:
@@ -40,6 +71,9 @@ public:
     virtual void parse() = 0;
     virtual void resend() = 0;
     virtual void recombination() = 0;
+    virtual void extractInformationElement() = 0;
+    virtual void setSSID(std::string&) = 0;
+    virtual void setHT() = 0;
 protected:
     ieee80211_mgmt* mgmt;
 };
@@ -52,10 +86,12 @@ public:
     void parse() override;
     void resend() override;
     void recombination() override;
-    void extractInformationElement();
+    void extractInformationElement() override;
+    void setSSID(std::string&) override;
+    void setHT() override;
 private:
     ieee80211_ie *ie;
-    vector<ieee80211_ie*> elements;
+    std::vector<CustomIe*> elements;
 };
 
 

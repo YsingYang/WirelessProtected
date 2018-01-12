@@ -6,7 +6,10 @@ CustomIe应该存在什么容器里.
 
 *************/
 
-CustomIe::CustomIe(): id(-1), len(-1){}
+CustomIe::CustomIe(): id_(-1), len_(-1){}
+
+CustomIe::~CustomIe(){
+}
 
 void CustomIe::setId(uint8_t id) {
     id_ = id;
@@ -16,8 +19,20 @@ void CustomIe::setLength(uint8_t length) {
     len_ = length;
 }
 
-void CustomIe::setData(std::vector<uint8_t> data) {
-    data_.emplace_back(data);
+void CustomIe::setData(std::vector<uint8_t>& data) {
+    int length = data.size();
+    data_.resize(length);
+    memcpy(&data_[0], &data[0], length);
+}
+
+void CustomIe::setData(uint8_t* data, int length) {
+    data_.resize(length);
+    memcpy(&data_[0], data, length);
+}
+
+void CustomIe::setData(std::string& data, int length) {
+    data_.resize(length);
+    memcpy(&data_[0], &data[0], length);
 }
 
 BasicFrame::BasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data)
@@ -41,7 +56,7 @@ ProbeRequestFrame::~ProbeRequestFrame() {
     /*********************************
         析构掉element中每一个元素的部分
     **********************************/
-    for(int i = 0; i < elements.size(); ++i) {
+    for(uint32_t i = 0; i < elements.size(); ++i) {
         delete elements[i];
     }
 }
@@ -50,26 +65,42 @@ void SubBasicFrame::setSeq(uint32_t seq) {
     mgmt->seq_ctrl = htons(seq << 4);
 }
 
+
 void ProbeRequestFrame::extractInformationElement() {
     int remainLength = packetLength_ - radiotapLength_ - 24;
     while(remainLength > FCS_LEN) {
         int currentLength = ie->len;
         CustomIe* customIe = new CustomIe();
-        customIe
-
+        customIe->setId(ie->id);
+        customIe->setLength(ie->len);
+        customIe->setData(ie->data, ie->len);
+        elements.emplace_back(customIe);
         remainLength -= ie->len - 2;
         ie = (ieee80211_ie*) ((char*)(ie) + currentLength + 2);
     }
 }
 
-void ProbeRequestFrame::setSSID(std::string SSID) {
+void ProbeRequestFrame::setSSID(std::string& SSID) {
+    bool flag = false;
+    int newLength = SSID.size();
+    for(uint32_t i = 0; i < elements.size(); ++i) {
+        if(flag){
+            break;
+        }
+        if(elements[i]->getId() == WLAN_EID_SSID) {
+            elements[i]->setData(SSID, newLength);
+            flag = true;
+        }
+    }
+}
 
+void ProbeRequestFrame::setHT(){
 }
 
 void ProbeRequestFrame::parse() {
     std::cout<<"packetLength :  " << packetLength_ <<"   radiotapLength : " <<radiotapLength_<<std::endl;
     int remainLength = packetLength_ - radiotapLength_ - 24; //减取radioTap与非ie部分
-    while(remainLenght > FCS_LEN) {
+    while(remainLength > FCS_LEN) {
         switch(ie -> id) {
             case WLAN_EID_SSID: {
                 int ssidLength = ie->len;
@@ -86,12 +117,12 @@ void ProbeRequestFrame::parse() {
         }
         int currentLength = ie->len;
         ie = (ieee80211_ie*)((char*)(ie) + currentLength + 2);
-        remainLenght  -= currentLength;
+        remainLength  -= currentLength;
     }
 }
 
+
 void ProbeRequestFrame::recombination() {
-    u_char FakeBeaconFrame[1024];
 }
 
 void ProbeRequestFrame::resend(){

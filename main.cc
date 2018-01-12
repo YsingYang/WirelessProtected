@@ -20,6 +20,7 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
     std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData));
     if(probeRequest != nullptr) {
         probeRequest ->parse();
+        probeRequest->extractInformationElement();
         SubBasicFrame* pb = probeRequest.get();
         sender->recombination(dynamic_cast<ProbeRequestFrame*>(pb));
     }

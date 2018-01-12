@@ -9,18 +9,19 @@
 	<functional>
 	"../_80211/ieee80211.h"
 
-1515504422 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
+1515760662 source:/home/ysing/codeblock Projects/WirelessProtect/main.cc
 	<memory>
 	"./pcap/PcapManager.h"
 	"./_80211/BasicFrame.h"
 	"./_80211/FrameFactory.h"
 	"./Socket/Sender.h"
 
-1515316504 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.cc
+1515764087 source:/home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.cc
 	"./BasicFrame.h"
 
-1515506768 /home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.h
+1515764145 /home/ysing/codeblock Projects/WirelessProtect/_80211/BasicFrame.h
 	<stdio.h>
+	<string.h>
 	<unistd.h>
 	<stdint.h>
 	<assert.h>
@@ -29,6 +30,7 @@
 	<sys/ioctl.h>
 	<linux/if_ether.h>
 	<arpa/inet.h>
+	<vector>
 	"ieee80211.h"
 	"ieee80211_radiotap.h"
 
@@ -94,10 +96,10 @@
 1515295765 source:/home/ysing/Project/C++Project/WirelessProtected/pcap/PcapManager.cc
 	"./PcapManager.h"
 
-1515501995 source:/home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.cc
+1515760662 source:/home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.cc
 	"Sender.h"
 
-1515504477 /home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.h
+1515755115 /home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.h
 	<stdio.h>
 	<arpa/inet.h>
 	<unistd.h>
@@ -107,6 +109,7 @@
 	<sys/ioctl.h>
 	<net/if.h>
 	<linux/if_ether.h>
+	<memory>
 	<net/ethernet.h>
 	"../_80211/FrameFactory.h"
 
