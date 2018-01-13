@@ -89,6 +89,7 @@ void ProbeRequestFrame::setSSID(std::string& SSID) {
         }
         if(elements[i]->getId() == WLAN_EID_SSID) {
             elements[i]->setData(SSID, newLength);
+            elements[i]->setLength(newLength); //不要忘记修改了ssid后还需要修改长度
             flag = true;
         }
     }
@@ -117,7 +118,7 @@ void ProbeRequestFrame::parse() {
         }
         int currentLength = ie->len;
         ie = (ieee80211_ie*)((char*)(ie) + currentLength + 2);
-        remainLength  -= currentLength;
+        remainLength  = remainLength - currentLength - 2 ;
     }
 }
 

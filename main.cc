@@ -15,14 +15,18 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
         printf("exceeding packet size\n");
         return;
     }
+
     Sender* sender = Sender::getInstance();
-    sender->init("wlan0");
+    if(!sender->isInit()){ //未初始化
+        sender->init("wlan0");
+    }
+
     std::shared_ptr<SubBasicFrame> probeRequest = createFrame(packetLength, rtLength, const_cast<u_char*>(packetData));
     if(probeRequest != nullptr) {
-        probeRequest ->parse();
-        probeRequest->extractInformationElement();
-        SubBasicFrame* pb = probeRequest.get();
-        sender->recombination(dynamic_cast<ProbeRequestFrame*>(pb));
+        probeRequest -> parse();
+        //probeRequest -> extractInformationElement();
+        //sender -> recombination(probeRequest);
+        //sender -> transmit(probeRequest);
     }
 }
 

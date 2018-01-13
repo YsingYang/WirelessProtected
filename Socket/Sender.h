@@ -22,18 +22,20 @@ public:
     void init(char* );
     void recombination(ProbeRequestFrame* );
     void recombination(std::shared_ptr<SubBasicFrame>);
-    void transmit();
-
+    void transmit(std::shared_ptr<SubBasicFrame> pr);
+    inline bool isInit();
 
 private:
     Sender();
     inline void clean();
 private:
     void copyDataToFakeFrame(char*, int length);
+    void copyInfomationElements(CustomIe*);
     static Sender* instance;
     int broadcastSockFd_;
     char fakeFrame_[1024];
     int counter;
+    bool isInit_;
 };
 
 void Sender::clean() { //将fakeFrame清空, counter 清0
@@ -41,6 +43,9 @@ void Sender::clean() { //将fakeFrame清空, counter 清0
     counter = 0;
 }
 
+bool Sender::isInit() {
+    return isInit_;
+}
 
 
 #endif // __SENDER__

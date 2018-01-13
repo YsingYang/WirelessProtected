@@ -89,10 +89,16 @@ public:
     void extractInformationElement() override;
     void setSSID(std::string&) override;
     void setHT() override;
+    inline std::vector<CustomIe*> getElements();
+
 private:
     ieee80211_ie *ie;
     std::vector<CustomIe*> elements;
 };
+
+std::vector<CustomIe*> ProbeRequestFrame::getElements() {
+    return elements;
+}
 
 
 bool SubBasicFrame::isProbeRequest(){
