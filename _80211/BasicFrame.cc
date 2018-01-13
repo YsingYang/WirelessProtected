@@ -63,20 +63,22 @@ ProbeRequestFrame::~ProbeRequestFrame() {
 
 void SubBasicFrame::setSeq(uint32_t seq) {
     mgmt->seq_ctrl = htons(seq << 4);
+    std::cout<<std::dec<<"dec seq" <<seq<<"  "<<"hex seq"<<std::hex<<htons(seq << 4)<<std::endl;
 }
 
 
 void ProbeRequestFrame::extractInformationElement() {
     int remainLength = packetLength_ - radiotapLength_ - 24;
+    ieee80211_ie* tempIe = ie;
     while(remainLength > FCS_LEN) {
-        int currentLength = ie->len;
+        int currentLength = tempIe->len;
         CustomIe* customIe = new CustomIe();
-        customIe->setId(ie->id);
-        customIe->setLength(ie->len);
-        customIe->setData(ie->data, ie->len);
+        customIe->setId(tempIe->id);
+        customIe->setLength(tempIe->len);
+        customIe->setData(tempIe->data, tempIe->len);
         elements.emplace_back(customIe);
-        remainLength -= ie->len - 2;
-        ie = (ieee80211_ie*) ((char*)(ie) + currentLength + 2);
+        remainLength = remainLength - currentLength - 2;
+        tempIe = (ieee80211_ie*) ((char*)(tempIe) + currentLength + 2);
     }
 }
 
@@ -99,25 +101,23 @@ void ProbeRequestFrame::setHT(){
 }
 
 void ProbeRequestFrame::parse() {
-    std::cout<<"packetLength :  " << packetLength_ <<"   radiotapLength : " <<radiotapLength_<<std::endl;
     int remainLength = packetLength_ - radiotapLength_ - 24; //减取radioTap与非ie部分
+    ieee80211_ie* tempIe = ie;
     while(remainLength > FCS_LEN) {
-        switch(ie -> id) {
+        switch(tempIe-> id) {
             case WLAN_EID_SSID: {
-                int ssidLength = ie->len;
-                std::string ssid = std::string((char*)(ie->data), ssidLength);
-                std::cout<<"ssidLenght  : "<<ssidLength<<" ssid  : " +  ssid<<std::endl;
+                int ssidLength = tempIe->len;
+                std::string ssid = std::string((char*)(tempIe->data), ssidLength);
                 break;
             }
             case WLAN_EID_HT_CAPABILITY: {
-                ieee80211_ht_cap* htCap = (ieee80211_ht_cap*)  (ie->data);
+                ieee80211_ht_cap* htCap = (ieee80211_ht_cap*)  (tempIe->data);
                 int htInfo = le16_to_cpu(htCap->cap_info);
-                std::cout<<"ht  : " <<htInfo<<std::endl;
                 break;
             }
         }
-        int currentLength = ie->len;
-        ie = (ieee80211_ie*)((char*)(ie) + currentLength + 2);
+        int currentLength = tempIe->len;
+        tempIe = (ieee80211_ie*)((char*)(tempIe) + currentLength + 2);
         remainLength  = remainLength - currentLength - 2 ;
     }
 }

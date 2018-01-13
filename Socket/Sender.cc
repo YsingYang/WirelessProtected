@@ -65,10 +65,11 @@ void Sender::recombination(std::shared_ptr<SubBasicFrame> pr) {
 
     ******************************/
     int seq = le16_to_cpu(pr->getMgmt()->seq_ctrl) >> 4;
-    seq = ((seq + 1) << 4);
+    seq = seq != 4095 ? seq+1 : 0;
     pr->setSeq(seq);
     std::string ssid = "Test2";
     pr->setSSID(ssid);
+
 }
 
 void Sender::transmit(std::shared_ptr<SubBasicFrame> pr) {
@@ -80,11 +81,10 @@ void Sender::transmit(std::shared_ptr<SubBasicFrame> pr) {
     std::vector<CustomIe*> elements = probe->getElements();
     for(uint32_t i = 0; i < elements.size(); ++i) {
         copyInfomationElements(elements[i]);
-        std::cout<<elements[i]->getId()<< "    "<<elements[i]->getLength()<<"   "<<std::endl;
     }
-    /*if(write(broadcastSockFd_, fakeFrame_, counter) < 0) {
+    if(write(broadcastSockFd_, fakeFrame_, counter) < 0) {
         perror("send 80211 packet error");
-    }*/
+    }
 }
 
 void Sender::copyDataToFakeFrame(char* data, int length) {
