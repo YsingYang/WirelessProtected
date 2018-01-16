@@ -75,7 +75,7 @@ void Sender::recombination(std::shared_ptr<SubBasicFrame> pr) {
 void Sender::transmit(std::shared_ptr<SubBasicFrame> pr) {
     //先将帧拷贝到字符数组中
     clean();
-    copyDataToFakeFrame((char*)(pr->getRadiotapHeader()), pr->getRadiotapLength());
+    //copyDataToFakeFrame((char*)(pr->getRadiotapHeader()), pr->getRadiotapLength());
     copyDataToFakeFrame((char*)(pr->getMgmt()), 24); //这里直接写mgmt为24好像不太好.
     std::shared_ptr<ProbeRequestFrame> probe = std::dynamic_pointer_cast<ProbeRequestFrame>(pr);
     std::vector<CustomIe*> elements = probe->getElements();

@@ -74,6 +74,8 @@ public:
     virtual void extractInformationElement() = 0;
     virtual void setSSID(std::string&) = 0;
     virtual void setHT() = 0;
+    virtual void driverFunction();
+    virtual void addIe(uint32_t id, int length, char* data) = 0;
 protected:
     ieee80211_mgmt* mgmt;
 };
@@ -89,6 +91,9 @@ public:
     void extractInformationElement() override;
     void setSSID(std::string&) override;
     void setHT() override;
+    void driverFunction() override;
+    void addIe(uint32_t id, int length, char* data);
+    bool checkVerdorSpecific(uint32_t id);
     inline std::vector<CustomIe*> getElements();
 
 private:

@@ -37,16 +37,15 @@ void CustomIe::setData(std::string& data, int length) {
 
 BasicFrame::BasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data)
     : packetLength_(packetLength), radiotapLength_(radiotapLength), radiotap_((ieee80211_radiotap_header*)(data)){
-
 }
 
 SubBasicFrame::SubBasicFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data)
     : BasicFrame(packetLength, radiotapLength, data), mgmt((ieee80211_mgmt*)(data + radiotapLength_)) {
-    }
+}
 
 ProbeRequestFrame::ProbeRequestFrame(uint32_t packetLength, uint32_t radiotapLength, u_char* data)
     : SubBasicFrame(packetLength, radiotapLength, data),  ie((struct ieee80211_ie*)(mgmt->u.probe_req.variable)){
-    }
+}
 
 BasicFrame::~BasicFrame() {}
 
@@ -62,8 +61,11 @@ ProbeRequestFrame::~ProbeRequestFrame() {
 }
 
 void SubBasicFrame::setSeq(uint32_t seq) {
-    mgmt->seq_ctrl = htons(seq << 4);
-    std::cout<<std::dec<<"dec seq" <<seq<<"  "<<"hex seq"<<std::hex<<htons(seq << 4)<<std::endl;
+    mgmt->seq_ctrl = seq << 4;
+}
+
+void SubBasicFrame::driverFunction(){
+
 }
 
 
@@ -100,6 +102,10 @@ void ProbeRequestFrame::setSSID(std::string& SSID) {
 void ProbeRequestFrame::setHT(){
 }
 
+void ProbeRequestFrame::driverFunction() {
+    //this->addIe()
+}
+
 void ProbeRequestFrame::parse() {
     int remainLength = packetLength_ - radiotapLength_ - 24; //减取radioTap与非ie部分
     ieee80211_ie* tempIe = ie;
@@ -122,6 +128,12 @@ void ProbeRequestFrame::parse() {
     }
 }
 
+void ProbeRequestFrame::addIe(uint32_t id, int length, char* data) {
+    CustomIe* ie = new CustomIe();
+    ie->setId(id);
+    ie->setLength(length);
+    ie->setData((uint8_t*)(data), length);
+}
 
 void ProbeRequestFrame::recombination() {
 }
