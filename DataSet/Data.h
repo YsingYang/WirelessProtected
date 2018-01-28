@@ -5,7 +5,7 @@
 
 class Data {
 public:
-    static char* getAppleVendorOUI();
+    static uint32_t* getAppleVendorOUI();
 
 private:
     static uint32_t appleVendorOUI[3];

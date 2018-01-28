@@ -103,7 +103,12 @@ void ProbeRequestFrame::setHT(){
 }
 
 void ProbeRequestFrame::driverFunction() {
-    //this->addIe()
+    this->checkVerdorSpecific(221);
+
+}
+
+void ProbeRequestFrame::checkVerdorSpecific(uint32_t id, uint32_t*); {
+
 }
 
 void ProbeRequestFrame::parse() {

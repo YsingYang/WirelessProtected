@@ -93,7 +93,7 @@ public:
     void setHT() override;
     void driverFunction() override;
     void addIe(uint32_t id, int length, char* data);
-    bool checkVerdorSpecific(uint32_t id);
+    bool checkVerdorSpecific(uint32_t id, uint32_t*);
     inline std::vector<CustomIe*> getElements();
 
 private:
