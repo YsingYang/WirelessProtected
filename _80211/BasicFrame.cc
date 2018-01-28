@@ -51,10 +51,10 @@ BasicFrame::~BasicFrame() {}
 
 SubBasicFrame::~SubBasicFrame() {}
 
-ProbeRequestFrame::~ProbeRequestFrame() {
     /*********************************
         析构掉element中每一个元素的部分
     **********************************/
+ProbeRequestFrame::~ProbeRequestFrame(){
     for(uint32_t i = 0; i < elements.size(); ++i) {
         delete elements[i];
     }
@@ -103,11 +103,10 @@ void ProbeRequestFrame::setHT(){
 }
 
 void ProbeRequestFrame::driverFunction() {
-    this->checkVerdorSpecific(221);
 
 }
 
-void ProbeRequestFrame::checkVerdorSpecific(uint32_t id, uint32_t*); {
+bool ProbeRequestFrame::checkVerdorSpecific(uint32_t id, uint32_t*) {
 
 }
 
