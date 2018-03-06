@@ -54,13 +54,14 @@
 1515295765 source:/home/ysing/Project/C++Project/WirelessProtected/_80211/FrameFactory.cc
 	"FrameFactory.h"
 
-1515295765 /home/ysing/Project/C++Project/WirelessProtected/_80211/FrameFactory.h
+1519227535 /home/ysing/Project/C++Project/WirelessProtected/_80211/FrameFactory.h
 	<memory>
 	"BasicFrame.h"
 	"ieee80211.h"
 
-1515296604 /home/ysing/Project/C++Project/WirelessProtected/_80211/BasicFrame.h
+1519227535 /home/ysing/Project/C++Project/WirelessProtected/_80211/BasicFrame.h
 	<stdio.h>
+	<string.h>
 	<unistd.h>
 	<stdint.h>
 	<assert.h>
@@ -68,6 +69,8 @@
 	<stdlib.h>
 	<sys/ioctl.h>
 	<linux/if_ether.h>
+	<arpa/inet.h>
+	<vector>
 	"ieee80211.h"
 	"ieee80211_radiotap.h"
 
@@ -80,11 +83,13 @@
 1513925468 /home/ysing/Project/C++Project/WirelessProtected/_80211/ieee80211_radiotap.h
 	<stdint.h>
 
-1515295765 source:/home/ysing/Project/C++Project/WirelessProtected/main.cc
+1519733696 source:/home/ysing/Project/C++Project/WirelessProtected/main.cc
 	<memory>
 	"./pcap/PcapManager.h"
 	"./_80211/BasicFrame.h"
 	"./_80211/FrameFactory.h"
+	"./Socket/Sender.h"
+	"./function/MyMD5.h"
 
 1513925469 /home/ysing/Project/C++Project/WirelessProtected/pcap/PcapManager.h
 	<stdio.h>
@@ -93,7 +98,7 @@
 	<functional>
 	"../_80211/ieee80211.h"
 
-1515295765 source:/home/ysing/Project/C++Project/WirelessProtected/pcap/PcapManager.cc
+1519227535 source:/home/ysing/Project/C++Project/WirelessProtected/pcap/PcapManager.cc
 	"./PcapManager.h"
 
 1516109529 source:/home/ysing/codeblock Projects/WirelessProtect/Socket/Sender.cc
@@ -119,4 +124,42 @@
 1517147077 /home/ysing/codeblock Projects/WirelessProtect/DataSet/Data.h
 	<stdint.h>
 	<random>
+
+1519227535 source:/home/ysing/Project/C++Project/WirelessProtected/_80211/BasicFrame.cc
+	"./BasicFrame.h"
+
+1519227535 /home/ysing/Project/C++Project/WirelessProtected/Socket/Sender.h
+	<stdio.h>
+	<arpa/inet.h>
+	<unistd.h>
+	<string.h>
+	<sys/socket.h>
+	<linux/if_packet.h>
+	<sys/ioctl.h>
+	<net/if.h>
+	<linux/if_ether.h>
+	<memory>
+	<net/ethernet.h>
+	"../_80211/FrameFactory.h"
+
+1519654619 source:/home/ysing/Project/C++Project/WirelessProtected/Socket/Sender.cc
+	"Sender.h"
+	"../function/MyMD5.h"
+
+1519635706 source:/home/ysing/Project/C++Project/WirelessProtected/DataSet/Data.cc
+	"Data.h"
+
+1519635699 /home/ysing/Project/C++Project/WirelessProtected/DataSet/Data.h
+	<stdint.h>
+	<random>
+
+1519657248 /home/ysing/Project/C++Project/WirelessProtected/function/MyMD5.h
+	<stdio.h>
+	<iostream>
+	<string>
+	<openssl/md5.h>
+	<string.h>
+
+1519657213 source:/home/ysing/Project/C++Project/WirelessProtected/function/MyMD5.cc
+	"./MyMD5.h"
 

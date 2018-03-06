@@ -4,6 +4,7 @@
 #include "./_80211/BasicFrame.h"
 #include "./_80211/FrameFactory.h"
 #include "./Socket/Sender.h"
+#include "./function/MyMD5.h"
 #define le16_to_cpu __le16_to_cpu
 
 
@@ -31,7 +32,13 @@ void loopfunction(u_char* user, const struct pcap_pkthdr* packetHeader, const u_
 }
 
 int main() {
-    PcapManager* pm = new PcapManager("wlan0");
+    /*PcapManager* pm = new PcapManager("wlan0");
     pm->setLoopFunction(loopfunction);
-    pm->funLoop(-1);
+    pm->funLoop(-1);*/
+
+    //md5-Test
+    std::string  test = "test";
+    std::string result = md5(test);
+    std::cout<<result<<std::endl;
+
 }

@@ -23,7 +23,9 @@ public:
     void recombination(ProbeRequestFrame* );
     void recombination(std::shared_ptr<SubBasicFrame>);
     void transmit(std::shared_ptr<SubBasicFrame> pr);
+    bool checkIsOriginFrame(std::shared_ptr<SubBasicFrame> pr);
     inline bool isInit();
+
 
 private:
     Sender();
